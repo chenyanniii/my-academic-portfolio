@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanni Chen, Ph.D. - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom animations not in default Tailwind */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 selection:bg-emerald-200 selection:text-emerald-900 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
+                        <div class="bg-emerald-600 p-1.5 rounded-lg text-white">
+                            <i data-lucide="dna" width="24" height="24"></i>
+                        </div>
+                        <span class="font-bold text-xl tracking-tight text-slate-800">Yanni Chen, Ph.D.</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex md:items-center md:space-x-1" id="desktop-menu">
+                    <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="home">
+                        <i data-lucide="leaf" width="18" height="18"></i> Home
+                    </button>
+                    <button onclick="switchTab('research')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="research">
+                        <i data-lucide="dna" width="18" height="18"></i> Research
+                    </button>
+                    <button onclick="switchTab('teaching')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="teaching">
+                        <i data-lucide="graduation-cap" width="18" height="18"></i> Teaching
+                    </button>
+                    <button onclick="switchTab('computing')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="computing">
+                        <i data-lucide="terminal" width="18" height="18"></i> Computing
+                    </button>
+                    <button onclick="switchTab('cv')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="cv">
+                        <i data-lucide="file-text" width="18" height="18"></i> CV
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-emerald-600 hover:bg-slate-100 focus:outline-none">
+                        <i data-lucide="menu" id="menu-icon" width="24" height="24"></i>
+                        <i data-lucide="x" id="close-icon" width="24" height="24" class="hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="switchTab('home')" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-md text-base font-medium flex items-center gap-3 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="home">
+                    <i data-lucide="leaf" width="18" height="18"></i> Home
+                </button>
+                <button onclick="switchTab('research')" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-md text-base font-medium flex items-center gap-3 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="research">
+                    <i data-lucide="dna" width="18" height="18"></i> Research
+                </button>
+                <button onclick="switchTab('teaching')" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-md text-base font-medium flex items-center gap-3 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="teaching">
+                    <i data-lucide="graduation-cap" width="18" height="18"></i> Teaching
+                </button>
+                <button onclick="switchTab('computing')" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-md text-base font-medium flex items-center gap-3 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="computing">
+                    <i data-lucide="terminal" width="18" height="18"></i> Computing
+                </button>
+                <button onclick="switchTab('cv')" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-md text-base font-medium flex items-center gap-3 text-slate-600 hover:text-emerald-600 hover:bg-slate-50" data-target="cv">
+                    <i data-lucide="file-text" width="18" height="18"></i> CV
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow w-full">
+        
+        <!-- HOME SECTION -->
+        <div id="home" class="section animate-fadeIn space-y-12">
+            <!-- Hero -->
+            <div class="relative overflow-hidden bg-slate-900 rounded-2xl text-white shadow-xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-emerald-900 to-slate-900 opacity-90"></div>
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 30px 30px"></div>
+                
+                <div class="relative px-6 py-16 sm:px-12 sm:py-20 lg:py-24 flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-sm font-semibold border border-emerald-500/30">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Postdoctoral Researcher @ Swenson Lab
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Bridging the Gap: <br/>
+                            <span class="text-emerald-400">From Green to Grid</span>
+                        </h1>
+                        <p class="text-lg text-slate-300 max-w-2xl leading-relaxed">
+                            I am an evolutionary and ecological scientist specializing in the functional evolution of angiosperms. 
+                            My work integrates transcriptomics, comparative phylogenomics, and AI to investigate how plants 
+                            respond to environmental challenges.
+                        </p>
+                        <div class="pt-4 flex flex-wrap gap-4">
+                            <button onclick="switchTab('research')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                                Read My Research
+                            </button>
+                            <button class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3 rounded-lg font-medium transition-colors">
+                                Contact Me
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="hidden md:block w-72 h-72 lg:w-96 lg:h-96 relative">
+                        <div class="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div class="relative bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="space-y-2 font-mono text-xs text-emerald-400">
+                                <p class="text-slate-400"># From Green to Grid</p>
+                                <p>$ nextflow run nf-core/rnaseq \</p>
+                                <p class="pl-4">--input samplesheet.csv \</p>
+                                <p class="pl-4">--genome GRCh38 \</p>
+                                <p class="pl-4">--profile docker</p>
+                                <p class="text-blue-400 mt-4">Running process > ANALYSIS:COMPLETE</p>
+                                <div class="w-full bg-slate-700 h-1.5 rounded-full mt-1">
+                                    <div class="bg-emerald-500 w-3/4 h-1.5 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="bg-emerald-50 rounded-2xl p-8 sm:p-10 border border-emerald-100">
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <div class="p-4 bg-white rounded-full shadow-md text-emerald-600">
+                        <i data-lucide="layers" width="48" height="48"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Integrative Research Philosophy</h3>
+                        <p class="text-slate-700 text-lg leading-relaxed">
+                            I link molecular evolution to community ecology by exploring how plant populations collectively respond to heat, water limitation, and other stressors. This integrative research illuminates how ecosystems adapt in the face of ongoing environmental change.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Focus / Beyond Bench -->
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6">Beyond the Bench</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <div class="mb-3 text-emerald-600"><i data-lucide="users" width="28" height="28"></i></div>
+                        <h3 class="font-bold text-slate-800 mb-2">Advisory Board</h3>
+                        <p class="text-slate-600 text-sm">Serving on the External Advisory Board for ACCESS, the NSF-funded national cyberinfrastructure program.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <div class="mb-3 text-emerald-600"><i data-lucide="message-circle" width="28" height="28"></i></div>
+                        <h3 class="font-bold text-slate-800 mb-2">CyberAmbassador</h3>
+                        <p class="text-slate-600 text-sm">Certified in scientific communication and collaboration, fostering better interdisciplinary dialogue.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <div class="mb-3 text-emerald-600"><i data-lucide="presentation" width="28" height="28"></i></div>
+                        <h3 class="font-bold text-slate-800 mb-2">Workshop Leadership</h3>
+                        <p class="text-slate-600 text-sm">Organized the herbarium DNA workshop at Botany 2023 and volunteered at SC22 supercomputing conference.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESEARCH SECTION -->
+        <div id="research" class="section hidden animate-fadeIn space-y-10">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Research Interests</h2>
+                <p class="text-xl text-slate-600 leading-relaxed">
+                    My research program bridges molecular biology, quantitative ecology, and data science to understand 
+                    plant resilience across biological scales.
+                </p>
+            </div>
+
+            <div class="grid gap-8">
+                <!-- Topic 1 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <div class="bg-emerald-600 p-6 md:w-20 flex items-start justify-center">
+                        <i data-lucide="leaf" class="text-white mt-1" width="32" height="32"></i>
+                    </div>
+                    <div class="p-8 flex-1">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Multi-omics & Molecular Mechanisms</h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            Linking leaf hyperspectral reflectance to gene expression, I investigate how plant genomes and transcriptomes 
+                            enable adaptation to environmental stress.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                            <li>Established high-throughput protocols for wild-collected tissue (RNA/DNA extraction).</li>
+                            <li>Generated large-scale RNA-Seq datasets linking physiological traits to expression.</li>
+                            <li>Utilized machine learning (CNNs) to identify spectral signatures of genetic variation.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Topic 2 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <div class="bg-sky-600 p-6 md:w-20 flex items-start justify-center">
+                        <i data-lucide="git-graph" class="text-white mt-1" width="32" height="32"></i>
+                    </div>
+                    <div class="p-8 flex-1">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Phylogenomics & Macroevolution</h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            Evolution of Angiosperms in response to climate change. I use comparative phylogenomics to understand 
+                            how evolutionary history shapes current trait distributions.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                            <li>Investigated gene family evolution across multiple plant species.</li>
+                            <li>Linked genetic patterns to observed phenotypic traits.</li>
+                            <li>Provided insights into evolutionary convergence and divergence.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Topic 3 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <div class="bg-indigo-600 p-6 md:w-20 flex items-start justify-center">
+                        <i data-lucide="users" class="text-white mt-1" width="32" height="32"></i>
+                    </div>
+                    <div class="p-8 flex-1">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Community Resilience</h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            I link molecular evolution to community ecology by exploring how plant populations collectively 
+                            respond to heat, water limitation, and other stressors.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                            <li>Evaluated gene families across coexisting species in field communities.</li>
+                            <li>Correlated functional trait variation with genomic signatures.</li>
+                            <li>Applied findings to predict community-level responses to climate change.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEACHING SECTION -->
+        <div id="teaching" class="section hidden animate-fadeIn space-y-12">
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-8 rounded-r-xl">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="book-open" class="text-emerald-700"></i>
+                    Teaching Philosophy: Inclusive & Data-Driven
+                </h2>
+                <p class="text-lg text-slate-700">
+                    I view teaching as a collaborative process designed to foster curiosity and bridge the gap between "non-coders" and computational biologists.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-6">Experience Highlights</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Formal Courses -->
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-4">
+                            <i data-lucide="graduation-cap" width="24" height="24"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-3">Formal Courses (TTU)</h4>
+                        <ul class="space-y-3">
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>Plant Biology:</strong> Foundational concepts in botany and physiology.</div>
+                            </li>
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>Plant Evolution:</strong> Evolutionary mechanisms and phylogenetic analysis.</div>
+                            </li>
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>Rangeland Management:</strong> Applied ecology and land stewardship.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Workshops -->
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4">
+                            <i data-lucide="terminal" width="24" height="24"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-3">Workshop Leadership</h4>
+                        <ul class="space-y-3">
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>Herbarium DNA:</strong> DNA extraction from museum specimens.</div>
+                            </li>
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>Bioinformatics:</strong> Introduction to Nextflow & nf-core pipelines.</div>
+                            </li>
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>HPC Training:</strong> High Performance Computing new user training.</div>
+                            </li>
+                            <li class="flex gap-3 text-slate-600 text-sm">
+                                <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                <div><strong>CyberAmbassadors:</strong> Interdisciplinary communication training.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentoring -->
+            <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i data-lucide="users" class="text-emerald-600"></i> Mentoring Students
+                </h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-bold text-slate-800 border-b border-slate-200 pb-2 mb-3">University of Notre Dame</h4>
+                        <ul class="list-disc list-inside text-slate-600 ml-2">
+                            <li><strong>Libbie Ring, Ph.D. Student</strong> (Research Mentoring)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 border-b border-slate-200 pb-2 mb-3">Texas Tech University</h4>
+                        <ul class="list-disc list-inside text-slate-600 ml-2">
+                            <li><strong>Reese Price, Undergraduate/Master Student</strong> (Lab Mentoring)</li>
+                            <li><strong>Courtney Mille, Undergraduate</strong> (Computational Mentoring)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPUTING SECTION -->
+        <div id="computing" class="section hidden animate-fadeIn space-y-12">
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="flex-1">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Research Computing & Bioinformatics</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        My technical expertise resides at the interface of high-performance computing (HPC) and biological data analysis. 
+                        I specialize in building reproducible pipelines that can handle the scale of modern genomic datasets.
+                    </p>
+                </div>
+                <!-- Interactive Code Visual -->
+                <div class="w-full md:w-1/3 bg-slate-900 rounded-lg shadow-lg overflow-hidden">
+                    <div class="flex bg-slate-800 border-b border-slate-700">
+                        <button id="btn-py" onclick="switchCode('py')" class="flex-1 px-4 py-2 text-xs font-mono text-emerald-400 bg-slate-700 hover:bg-slate-700 transition-colors">central_dogma.py</button>
+                        <button id="btn-docker" onclick="switchCode('docker')" class="flex-1 px-4 py-2 text-xs font-mono text-slate-500 hover:text-emerald-300 transition-colors">Dockerfile</button>
+                    </div>
+                    
+                    <!-- Code Content: Python -->
+                    <div id="code-py" class="p-6 font-mono text-sm text-emerald-400 h-64 overflow-y-auto">
+                        <p class="mb-2 text-slate-500"># Translation logic</p>
+                        <p class="mb-2"><span class="text-pink-400">def</span> <span class="text-yellow-300">translate</span>(rna_seq):</p>
+                        <p class="pl-4 mb-1">protein = []</p>
+                        <p class="pl-4 mb-1"><span class="text-pink-400">for</span> i <span class="text-pink-400">in</span> <span class="text-blue-300">range</span>(0, <span class="text-blue-300">len</span>(rna_seq) - 2, 3):</p>
+                        <p class="pl-8 mb-1">codon = rna_seq[i:i+3]</p>
+                        <p class="pl-8 mb-1">aa = CODON_TABLE.get(codon, <span class="text-green-300">'X'</span>)</p>
+                        <p class="pl-8 mb-1">protein.append(aa)</p>
+                        <p class="pl-8 mb-1"><span class="text-pink-400">if</span> aa == <span class="text-green-300">'*'</span>: <span class="text-slate-500"># stop</span></p>
+                        <p class="pl-12 mb-1"><span class="text-pink-400">break</span></p>
+                        <p class="pl-4">return <span class="text-green-300">''</span>.join(protein)</p>
+                    </div>
+
+                    <!-- Code Content: Dockerfile -->
+                    <div id="code-docker" class="hidden p-6 font-mono text-sm text-emerald-400 h-64 overflow-y-auto">
+                        <p class="mb-2 text-slate-500"># Reproducible Environment</p>
+                        <p class="mb-2"><span class="text-pink-400">FROM</span> condaforge/mambaforge:4.12.0-2</p>
+                        <p class="mb-2"><span class="text-pink-400">ENV</span> PATH="/root/mambaforge/bin:${PATH}"</p>
+                        <p class="mb-2"><span class="text-pink-400">RUN</span> apt update && apt install time</p>
+                        <p class="mb-1"><span class="text-pink-400">RUN</span> mkdir -p /hybpiper2 \</p>
+                        <p class="pl-4 mb-1">&& conda config --add channels bioconda \</p>
+                        <p class="pl-4 mb-1">&& conda config --add channels conda-forge \</p>
+                        <p class="pl-4 mb-1">&& mamba create -y -n hybpiper_V2_sprint -c chrisjackson-pellicle hybpiper</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Technical Skills -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <i data-lucide="code" class="text-emerald-600"></i> Core Competencies
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-800">High-Performance Computing (HPC)</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">HPC administration, scheduler management (Slurm), and software environment management (Conda/Singularity).</p>
+                            <div class="w-full bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full w-[95%]"></div></div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-800">Workflow Development</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">Developing reproducible pipelines using Nextflow & nf-core to ensure scientific rigor and scalability.</p>
+                            <div class="w-full bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full w-[90%]"></div></div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-800">Data Visualization & Analysis</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">Transforming complex genomic data into insights using Python/Dash for interactive dashboards and MCMC models for phylogenomics.</p>
+                            <div class="w-full bg-slate-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full w-[85%]"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leadership -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <i data-lucide="users" class="text-sky-600"></i> Cyberinfrastructure Service
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-bold">1</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">SCinet Volunteer</h4>
+                                <p class="text-sm text-slate-600">Active contributor to international supercomputing conferences (SC22).</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-bold">2</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">ACCESS Advisor</h4>
+                                <p class="text-sm text-slate-600">Advisor for the ACCESS program to improve training accessibility for regional universities.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-bold">3</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">HPC Service</h4>
+                                <p class="text-sm text-slate-600">Former Graduate Research Assistant at TTU HPC Center managing software environments.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CV SECTION -->
+        <div id="cv" class="section hidden animate-fadeIn max-w-4xl mx-auto space-y-12">
+            <div class="flex justify-between items-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Curriculum Vitae</h2>
+                    <p class="text-slate-500">Updated: October 2025</p>
+                </div>
+                <!-- LINK UPDATED TO MATCH YOUR FILE NAME -->
+                <a href="C.V._YCHEN_10_25.pdf" download="C.V._YCHEN_10_25.pdf" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium">
+                    <i data-lucide="file-text" width="18" height="18"></i> Download PDF
+                </a>
+            </div>
+
+            <!-- Education -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-6 border-b pb-2">Education</h3>
+                <div class="space-y-8 pl-4 border-l-2 border-slate-200 ml-2">
+                    <div class="relative">
+                        <div class="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-emerald-500 border-4 border-white"></div>
+                        <div class="mb-1 text-sm font-semibold text-emerald-600">2023</div>
+                        <h4 class="text-lg font-bold text-slate-800">Ph.D. in Biology</h4>
+                        <p class="text-slate-600">Texas Tech University</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-slate-300 border-4 border-white"></div>
+                        <div class="mb-1 text-sm font-semibold text-slate-500">2014</div>
+                        <h4 class="text-lg font-bold text-slate-800">M.S. in Wildlife, Aquatic, and Wildland Science</h4>
+                        <p class="text-slate-600">Texas Tech University</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-slate-300 border-4 border-white"></div>
+                        <div class="mb-1 text-sm font-semibold text-slate-500">2009</div>
+                        <h4 class="text-lg font-bold text-slate-800">B.Ag. in Grassland Sciences</h4>
+                        <p class="text-slate-600">Gansu Agricultural University</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-6 border-b pb-2">Selected Publications</h3>
+                <div class="space-y-4">
+                    <div class="bg-white p-5 rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-slate-800 text-lg">Linking leaf hyperspectral reflectance to gene expression</h4>
+                            <span class="text-emerald-600 font-semibold text-sm">2025</span>
+                        </div>
+                        <p class="text-slate-600 italic">Nature Communications Earth & Environment</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-slate-800 text-lg">The value of long-term ecological research for evolutionary insights</h4>
+                            <span class="text-emerald-600 font-semibold text-sm">2024</span>
+                        </div>
+                        <p class="text-slate-600 italic">Nature Ecology & Evolution</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-slate-800 text-lg">Including phylogenetic conservatism... does not improve species germinability prediction</h4>
+                            <span class="text-emerald-600 font-semibold text-sm">2022</span>
+                        </div>
+                        <p class="text-slate-600 italic">Frontiers in Ecology and Evolution</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Awards -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-6 border-b pb-2">Awards & Funding</h3>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <!-- Row 1: NASA & MATCH Plus -->
+                    <div class="p-6 bg-gradient-to-br from-[#59821e] to-white rounded-lg shadow-md border border-[#59821e]/30">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-[#59821e] text-xl mb-2">NASA Biodiversity & Ecological Conservation</h4>
+                            <i data-lucide="award" class="text-[#59821e]" width="28" height="28"></i>
+                        </div>
+                        <p class="text-slate-700 font-medium">Postdoctoral support</p>
+                    </div>
+                    
+                    <div class="p-6 bg-gradient-to-br from-[#b4be60] to-white rounded-lg shadow-md border border-[#b4be60]/30">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-[#59821e] text-xl mb-2">MATCH Plus Award</h4>
+                            <i data-lucide="cpu" class="text-[#59821e]" width="28" height="28"></i>
+                        </div>
+                        <p class="text-slate-700 font-medium">7,500,000 CPU core hours through NSF ACCESS</p>
+                    </div>
+
+                    <!-- Row 2: Fellowships (Doctoral & Dr. John La Duke) -->
+                    <div class="p-6 bg-gradient-to-br from-[#d3d6cd] to-white rounded-lg shadow-md border border-[#d3d6cd]/50">
+                        <div class="flex flex-col h-full justify-between">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-800 text-xl">Doctoral Dissertation Completion Fellowship</h4>
+                                <i data-lucide="award" class="text-slate-600 ml-2 flex-shrink-0" width="28" height="28"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium mt-2">Texas Tech University</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-gradient-to-br from-[#d3d6cd] to-white rounded-lg shadow-md border border-[#d3d6cd]/50">
+                        <div class="flex flex-col h-full justify-between">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-800 text-xl">Dr. John La Duke Endorsed Fellowship for Botanical Researchers</h4>
+                                <i data-lucide="award" class="text-slate-600 ml-2 flex-shrink-0" width="28" height="28"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium mt-2">Texas Tech University</p>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Ann Miller Grant -->
+                    <div class="p-6 bg-gradient-to-br from-[#e0eaf3] to-white rounded-lg shadow-md border border-[#e0eaf3]/50 sm:col-span-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xl mb-2">Ann Miller Gonzalez Research Grant</h4>
+                                <p class="text-slate-700 font-medium">The Native Plant Society of Texas</p>
+                            </div>
+                            <i data-lucide="award" class="text-slate-600" width="28" height="28"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h4 class="font-bold text-lg text-slate-800">Yanni Chen, Ph.D.</h4>
+                <p class="text-slate-500 text-sm">University of Notre Dame | Swenson Lab</p>
+                <div class="text-slate-500 text-sm mt-2 space-y-1">
+                    <p><i data-lucide="mail" class="inline w-4 h-4 mr-1"></i> ychen62@nd.edu</p>
+                    <p><i data-lucide="phone" class="inline w-4 h-4 mr-1"></i> (806) 500-6116</p>
+                </div>
+            </div>
+            
+            <div class="text-slate-400 text-sm text-center md:text-right">
+                &copy; 2025 Yanni Chen. All rights reserved.<br/>
+                Designed for Academic Portfolio.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        function toggleMobileMenu() {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Update Navigation State (Desktop)
+            document.querySelectorAll('#desktop-menu button').forEach(btn => {
+                if (btn.dataset.target === tabId) {
+                    btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-100');
+                    btn.classList.remove('text-slate-600', 'hover:text-emerald-600', 'hover:bg-slate-50');
+                } else {
+                    btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-100');
+                    btn.classList.add('text-slate-600', 'hover:text-emerald-600', 'hover:bg-slate-50');
+                }
+            });
+
+            // Update Navigation State (Mobile)
+            document.querySelectorAll('#mobile-menu button').forEach(btn => {
+                if (btn.dataset.target === tabId) {
+                    btn.classList.add('bg-emerald-50', 'text-emerald-700');
+                    btn.classList.remove('text-slate-600', 'hover:text-emerald-600', 'hover:bg-slate-50');
+                } else {
+                    btn.classList.remove('bg-emerald-50', 'text-emerald-700');
+                    btn.classList.add('text-slate-600', 'hover:text-emerald-600', 'hover:bg-slate-50');
+                }
+            });
+
+            // Show/Hide Sections
+            document.querySelectorAll('.section').forEach(section => {
+                if (section.id === tabId) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            // Close Mobile Menu if open
+            if (!mobileMenu.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Code Visual Switching Logic
+        function switchCode(tab) {
+            const pyBtn = document.getElementById('btn-py');
+            const dockerBtn = document.getElementById('btn-docker');
+            const pyCode = document.getElementById('code-py');
+            const dockerCode = document.getElementById('code-docker');
+
+            if (tab === 'py') {
+                pyCode.classList.remove('hidden');
+                dockerCode.classList.add('hidden');
+                
+                // Active state for Python button
+                pyBtn.classList.add('bg-slate-700', 'text-emerald-400');
+                pyBtn.classList.remove('text-slate-500');
+                
+                // Inactive state for Docker button
+                dockerBtn.classList.remove('bg-slate-700', 'text-emerald-400');
+                dockerBtn.classList.add('text-slate-500');
+            } else {
+                pyCode.classList.add('hidden');
+                dockerCode.classList.remove('hidden');
+                
+                // Active state for Docker button
+                dockerBtn.classList.add('bg-slate-700', 'text-emerald-400');
+                dockerBtn.classList.remove('text-slate-500');
+                
+                // Inactive state for Python button
+                pyBtn.classList.remove('bg-slate-700', 'text-emerald-400');
+                pyBtn.classList.add('text-slate-500');
+            }
+        }
+
+        // Initialize default tab
+        switchTab('home');
+    </script>
+</body>
+</html>
